@@ -1,0 +1,219 @@
+GIT         // HURRAH
+
+config
+    git config --global user.name <some_name>
+    git config --global user.email <some_email>
+        set user id, apparently
+
+    git config --global credential.helper cache
+        don't need to type password everytime, keep credential in memory for a while
+
+    // Some other config
+    git config --global color.ui true
+    git config --global push.default current
+    git config --global core.editor vim
+    git config --global diff.tool meld
+    
+informatics
+    git log
+        show all commits
+    
+    git log --pretty=format:"%h %s"/oneline
+            --graph
+            --auther='<some_name>'
+            --after={<formatted time period>}
+            --abbrev-commit
+        some log showing options
+    
+    git log --no-merge master
+        show only changes made on this branch after branching from master, for example
+
+    git status -s/--short
+        show status, obviously, and potentially some suggestions of how to go about things
+
+    git diff
+        see current unstaged changes (unstaged only)
+    
+    git diff HEAD
+        see current uncomitted changes (staged + unstaged)
+
+    git diff <branch>
+        compare current branch to <branch>
+
+    git difftool -d
+    git difftool -d <branch>
+        same as diff, but opens changes via difftool configured
+        -d tells it to open in directory mode, instaed of opening files one at a time
+
+    git diff --no-commit-id
+             --name-only
+             --no-merges
+             --origin/master
+        see only file names whose content changed in current branch
+    
+    git diff --stat 
+        see statistics on what files have changed and how
+
+    
+
+actions!
+    git add ./<filename>
+        add to staging area
+    
+    git rm <filename>
+        not to track <filename>     // FIXME: really though
+
+    git commit -m "<message>"
+        save to history
+
+    git commit --amend
+        change prev commit to incorporate new or discard old changes perhaps,
+        if haven't pushed to remote yet.
+    
+    git reset
+        unstage pending changes, the changes will still remain in filesystem.
+    
+    git reset --hard HEAD
+        unstage pending changes, and reset files to pre-commit state.
+    
+    git reset tag
+    git reset <commit_hash>
+        go back in time...to the given point in commit history
+
+    git stash
+    git stash pop
+        save current changes, w/o having to commit em to a repo
+        and later return these changes
+
+    git checkout <filename>
+        return file to its prev version, if it has not been staged yet.
+        o.w. use 
+            git reset <filename>
+            git reset --hard <filename>
+
+
+local branches:
+    git branch
+        show list of all local branches
+
+    git checkout <local_branch>
+    git switch <local_branch>
+        switch to an existing local_branch
+    
+    git checkout -b <branch>
+    git switch -c <branch>
+        create a new branch <branch> and check it out
+    
+    git merge <branch>
+        merge <branch> into current branch
+
+    git merge --no-ff <branch>
+        merge branch w/o fast forwarding. 
+        this is what pull requests do; helps to preserve history of the changes 
+        as relavent to that branch 
+        // FIXME: more
+
+    git branch -d <branch>
+        soft branch delete, will complain if the branch is not merged
+    
+    git branch -D <branch>
+        hard branch delete, will not complain
+
+remote branches:
+    git clone (-o <name_of_remote>)
+        clone a project from server and name it origin of -o <some_name> is not set
+    
+    git ls-remote <remote>
+        list of remote references
+
+    git remote
+    git remote show <remote>
+        list of remote references and connection info
+
+    git remote -v
+        detailed view of remote repos w/ urls
+
+    git remote add <remote> <url>
+        add a new remote reference to the project
+
+    git fetch <remote>
+        fetch updates remote-tracking branches, but does not merge
+        i.e. origin/master and (local) master are separate pointers
+        NOTE: doesn't create a local/editable copy of origin/<branch>
+
+    git fetch -a/--all
+        fetch from all remote branches but do not merge
+
+    git fetch -p/--purge
+        update history of remote branches?                  // FIXME: curious
+
+    git push <remote> <branch>
+        take local branch and update the remote's <branch>
+        variant: git push <remote> <local_branch>:<remote_branch> for a "redirection" of branchs
+    
+    git push -u/--set-upstream origin master
+        set a remote branch as upstream of a local branch   // so... local tracking branch of this remote_branch?
+
+    git push <remote> --delete <branch>
+        delete a remote branch [can be recovered for a while]
+    
+    git merge <branch>
+    git merge <remote>/<branch>
+        merge <branch> or origin/<branch> to current local branch
+
+    git checkout -b <local_branch> (<remote>/<branch>)
+    git switch -c <local_branch> (<remote>/<branch>)
+        create a new local branch, 
+        or local tracking branch <local_branch> of <remote/branch> based on 
+        <remote>/<branch> if specified
+
+    git checkout --track <remote>/<branch>
+        shorthand for creating tracking branches named <branch>
+        
+    git checkout <remote_branch>
+        shorthand for above shorthand if:
+            1. local <remote_branch> does not exist, and 
+            2. <remote_branch> matches exactly one name on only one remote
+        local tracking branch name is <remote_branch> by default
+        
+    git branch -u/--set-upstream-to <remote>/<branch>
+        set a local branch to track a remote branch, or change the upstream branch
+        currently tracking
+        
+    git branch -vv 
+        list local vs remote branches info UTIL last fetch/pull, 
+        including what each branch is tracking and if a local branch is ahead, 
+        behind or both.
+        (except when used right after $ g fetch -a)
+
+    git pull
+        $ git pull & git merge, given that local branch track a remote branch 
+        (either clone'd or checkout'd)
+    
+
+concepts
+    tracking branch vs. upstream branch
+        checking out a local branch from a remote-tracing branch automatically 
+        create a "tracking branch". 
+        tracking branches are local branches that have a direct relationship to 
+        a remote branch.
+            i.e. git pull knows where to pull from
+
+
+
+Resources
+Reference
+- Try Github - https://try.github.io
+- learnGitBranching http://pcottle.github.io/learnGitBranching/?NODEMO
+- Pro Git - Free Book - http://git-scm.com/book
+
+Viewing History
+- Source Tree - http://www.sourcetreeapp.com/
+- tig - `sudo apt-get install tig` or `brew install tig` etc
+- gitk - `sudo apt-get install gitk`
+
+Merge/Diff Tools
+- Meld - `sudo apt-get install meld` or `brew install meld`
+- Open Diff
+- p4v Merge - http://git-scm.com/book/en/Customizing-Git-Git-Configuration#External-Merge-and-Diff-Tools
+- Webstorm
