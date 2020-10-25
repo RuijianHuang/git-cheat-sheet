@@ -113,11 +113,18 @@ local branches:
         as relavent to that branch 
         // FIXME: more
 
+    git branch -m <branch_name>
+        rename a local branch to <branch_name>
+
     git branch -d <branch>
         soft branch delete, will complain if the branch is not merged
     
     git branch -D <branch>
         hard branch delete, will not complain
+    
+    git cherry-pick <hashcode>
+        pick a commit, presumably from another branch, identified by <hashcode>
+        and commit to the current branch
 
 remote branches:
     git clone (-o <name_of_remote>)
