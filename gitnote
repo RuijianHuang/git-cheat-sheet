@@ -8,7 +8,7 @@ config
     git config --global credential.helper cache
         don't need to type password everytime, keep credential in memory for a while
 
-    // Some other config
+    // Some other configs
     git config --global color.ui true
     git config --global push.default current
     git config --global core.editor vim
@@ -84,6 +84,9 @@ actions!
     git stash pop
         save current changes, w/o having to commit em to a repo
         and later return these changes
+    
+    git stash apply
+        apply last stashed changes to the current branch
 
     git checkout <filename>
         return file to its prev version, if it has not been staged yet.
@@ -206,21 +209,13 @@ concepts
         a remote branch.
             i.e. git pull knows where to pull from
 
-
-
-Resources
-Reference
+References
 - Try Github - https://try.github.io
-- learnGitBranching http://pcottle.github.io/learnGitBranching/?NODEMO
+- learnGitBranching - https://learngitbranching.js.org/?NODEMO
 - Pro Git - Free Book - http://git-scm.com/book
 
-Viewing History
+Tools
 - Source Tree - http://www.sourcetreeapp.com/
 - tig - `sudo apt-get install tig` or `brew install tig` etc
 - gitk - `sudo apt-get install gitk`
-
-Merge/Diff Tools
-- Meld - `sudo apt-get install meld` or `brew install meld`
-- Open Diff
-- p4v Merge - http://git-scm.com/book/en/Customizing-Git-Git-Configuration#External-Merge-and-Diff-Tools
-- Webstorm
+- lazygit - sudo add-apt-repository ppa:lazygit-team/release && sudo apt install lazygit
