@@ -162,7 +162,7 @@ remote branches:
         variant: git push <remote> <local_branch>:<remote_branch> for a "redirection" of branchs
     
     git push -u/--set-upstream origin master
-        set a remote branch as upstream of a local branch   // so... local tracking branch of this remote_branch?
+        set a remote branch as upstream of a local branch
 
     git push <remote> --delete <branch>
         delete a remote branch [can be recovered for a while]
