@@ -197,6 +197,10 @@ remote branches:
         $ git pull & git merge, given that local branch track a remote branch 
         (either clone'd or checkout'd)
     
+Switch to PATs (for existing repos)
+    git remote remove origin
+    git remote add origin https://<PAT>@github.com/<username>/<repo>.git
+    git push -u origin --all
 
 concepts
     tracking branch vs. upstream branch
